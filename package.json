@@ -1,0 +1,15 @@
+{
+  "name": "mongodb-challenges",
+  "version": "1.0.0",
+  "description": "Pequeno projeto para desenvolvimento em MongoDB",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

@@ -1,15 +1,24 @@
-const create = (req, res) => {
+const userService = require('../services/user.service');
+const moogose = require('mongoose');
+
+const create = async (req, res) => {
     const {name ,username ,email ,password , avatar, background} = req.body;
 
     if(!name || !username || !email || !password || !avatar || !background){
         res.status(400).send({message:"Submit all fields for registration"})
     }
 
-    
+    const user = await userService.createService(req.body);
+
+    if(!user){
+        return res.status(400).send({message:"Error while creating user"})
+    }
+
 
     res.status(201).send({
         message: "User created sucessfully!",
         user:{
+            id: user._id,
             name,
             username,
             email,
@@ -19,4 +28,31 @@ const create = (req, res) => {
        
     });
 }
-module.exports = {create};
+
+const findAll = async (req, res) => {
+    const users = await userService.findAllServices();
+   
+    if(users.length === 0){
+        return res.status(404).send({message:"No users found"})
+    }
+
+    res.send(users);
+}
+
+const findById = async (req, res) => {
+    const id = req.params.id;
+
+    if(!moogose.Types.ObjectId.isValid(id)){
+        return res.status(400).send({message:"Invalid id"})
+    }
+
+    const user = await userService.findByIdService(id);
+
+    if(!user){
+        return res.status(404).send({message:"User not found"})
+    }
+
+    res.send(user);
+
+}
+module.exports = {create, findAll, findById};

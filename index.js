@@ -1,10 +1,13 @@
 const express = require("express");
 const app = express();
 
-app.get("/soma", (req, res) => {
-  const soma = 100 + 1 ;
+const userRoute = require("./scr/routes/user.route")
 
-  res.send({soma: soma})
-});
 
-app.listen(3000);
+const port = 3000;
+
+
+app.use(express.json());
+app.use("/user", userRoute);
+
+app.listen(port, () => console.log(`Server is running in port ${port}`) );

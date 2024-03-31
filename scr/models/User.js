@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
 
 const UserSchema = new mongoose.Schema({
     name: {
@@ -7,27 +7,34 @@ const UserSchema = new mongoose.Schema({
     },
     username: {
         type: String,
-        required: true
-    },
-    email: {
+        required: true,
+        unique: true,
+      },
+      email: {
         type: String,
-        required: true, 
-        unique: true
-    },
-    password: {
+        required: true,
+        unique: true,
+        lowercase: true,
+      },
+      password: {
         type: String,
-        required: true
-    },
-    avatar: {
+        required: true,
+        select: false,
+      },
+      avatar: {
         type: String,
-        required: true
-    },
-    background: {
+        required: true,
+      },
+      background: {
         type: String,
-        required: true
+        required: true,
     }
+});
+
+UserSchema.pre("save", function (next) {
+    this.password = bcrypt.hashSync(this.password, 8);
 });
 
 const User = mongoose.model("User", UserSchema);
 
-module.exports = User;
+export default User;

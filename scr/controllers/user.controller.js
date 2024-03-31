@@ -17,7 +17,7 @@ const create = async (req, res) => {
   res.status(201).send({
     message: "User created sucessfully!",
     user: {
-      id: user._id,
+      id: user.id,
       name,
       username,
       email,
@@ -26,7 +26,7 @@ const create = async (req, res) => {
     },
   });
 } catch (error) {
-  res.status(500).send({ message: "Error" });
+  res.status(500).send({ message: error.message });
 }
 };
 

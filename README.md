@@ -1,4 +1,4 @@
-# mongoDB-challenges
+# API-mongoDB-challenges
 Pequeno projeto API para desenvolvimento em MongoDB
 
 # 💻 Tech Stack:
